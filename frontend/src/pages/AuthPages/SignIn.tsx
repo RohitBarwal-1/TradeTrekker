@@ -2,15 +2,34 @@ import { useState } from "react";
 import GridShape from "../../components/common/GridShape";
 import Input from "../../components/form/input/InputField";
 import Label from "../../components/form/Label";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../icons";
 import Checkbox from "../../components/form/input/Checkbox";
 import Button from "../../components/ui/button/Button";
 import PageMeta from "../../components/common/PageMeta";
+import { useAuth } from "../../context/AuthContext"
 
 export default function SignIn() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [formData, setFromData] = useState({ username: "", password: "" });
+  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFromData({ ...formData, [e.target.name]: e.target.value });
+  }
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await login(formData.username, formData.password);
+      navigate("/ecommerce"); // Redirect to dashboard
+    } catch (err) {
+      setError("Invalid email or password");
+    }
+  }
   return (
     <>
       <PageMeta
@@ -83,13 +102,13 @@ export default function SignIn() {
                     </span>
                   </div>
                 </div>
-                <form>
+                <form onSubmit={handleLogin}>
                   <div className="space-y-6">
                     <div>
                       <Label>
-                        Email <span className="text-error-500">*</span>{" "}
+                        Username <span className="text-error-500">*</span>{" "}
                       </Label>
-                      <Input placeholder="info@gmail.com" />
+                      <Input placeholder="username" name="username" type="text" onChange={handleChange} />
                     </div>
                     <div>
                       <Label>
@@ -99,6 +118,8 @@ export default function SignIn() {
                         <Input
                           type={showPassword ? "text" : "password"}
                           placeholder="Enter your password"
+                          name="password"
+                          onChange={handleChange}
                         />
                         <span
                           onClick={() => setShowPassword(!showPassword)}
@@ -127,7 +148,7 @@ export default function SignIn() {
                       </Link>
                     </div>
                     <div>
-                      <Button className="w-full" size="sm" >
+                      <Button className="w-full" size="sm">
                         Sign in
                       </Button>
                     </div>
