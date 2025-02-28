@@ -51,8 +51,5 @@ export const logout = () => {
 };
 
 // Fetch user profile (protected route)
-export const fetchUser = async () => {
-    return await api.get("/user");
-};
 
 export default api;

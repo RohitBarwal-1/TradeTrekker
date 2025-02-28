@@ -39,7 +39,6 @@ export default function SignUp() {
     }
 
     setLoading(true);
-    console.log(formData)
     setError("");
     try {
       // Send request to backend

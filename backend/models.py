@@ -9,3 +9,4 @@ class UserCreate(BaseModel):
     is_staff: bool
     is_active: bool
     password: str
+

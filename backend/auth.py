@@ -53,5 +53,7 @@ async def login(request: Request, form_data: OAuth2PasswordRequestForm = Depends
         data={"sub": user["username"]}, 
         expires_delta=timedelta(minutes=30)
     )
+    user["_id"] = str(user["_id"])  
+    return {"access_token": access_token, "token_type": "bearer", "user":user}
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    

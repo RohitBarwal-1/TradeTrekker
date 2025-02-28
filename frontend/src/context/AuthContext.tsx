@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { login as apiLogin, logout as apiLogout, fetchUser } from "../services/api";
+import { login as apiLogin, logout as apiLogout } from "../services/api";
 
 
 const AuthContext = createContext({
@@ -13,18 +13,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const checkUser = async () => {
-            try {
-                const response = await fetchUser();
-                setUser(response.data);
-                setIsAuthenticated(true);
-            } catch (error) {
-                setIsAuthenticated(false);
-            }
-        };
-        checkUser();
-    }, []);
 
 
     const login = async (username: string, password: string) => {
