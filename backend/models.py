@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from typing import Optional
 
 class UserCreate(BaseModel):
     username: str
@@ -10,3 +11,7 @@ class UserCreate(BaseModel):
     is_active: bool
     password: str
 
+class Stock(BaseModel):
+    org_name: str
+    org_ticker: str
+    org_logo: Optional[str]  # ObjectId of the stored image in GridFS

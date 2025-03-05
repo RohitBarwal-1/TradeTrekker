@@ -7,6 +7,7 @@ import Blank from "./pages/Blank";
 import Calendar from "./pages/Calendar";
 import Ecommerce from "./pages/Dashboard/ECommerce";
 import FormElements from "./pages/Forms/FormElements";
+import StockForm from "./pages/Forms/StockForm";
 import NotFound from "./pages/OtherPage/NotFound";
 import BasicTables from "./pages/Tables/BasicTables";
 import Alerts from "./pages/UiElements/Alerts";
@@ -38,6 +39,7 @@ export default function App() {
 
             {/* Forms */}
             <Route path="/form-elements" element={<FormElements />} />
+            <Route path="/stock-form" element={<StockForm />} />
 
             {/* Tables */}
             <Route path="/basic-tables" element={<BasicTables />} />
